@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 // prisma/schema.prisma
 
 generator client {
@@ -11,15 +5,38 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
   directUrl = env("DIRECT_URL")
 }
 
+// 1. ジャンル（和食、イタリアンなど）を管理
+model Category {
+  id        Int      @id @default(autoincrement())
+  name      String   // ジャンル名（例: "パスタ", "サラダ"）
+  menus     Menu[]   // 1つのジャンルに複数のメニューが紐付く
+  createdAt DateTime @default(now())
+}
+
+// 2. メニュー（料理名）を管理
 model Menu {
-  id          Int      @id @default(autoincrement())
-  name        String
+  id          Int          @id @default(autoincrement())
+  name        String       // 料理名
   description String?
-  price       Int
-  createdAt   DateTime @default(now())
+  // ジャンルとの紐付け
+  categoryId  Int
+  category    Category     @relation(fields: [categoryId], references: [id])
+  // 具材との紐付け
+  ingredients Ingredient[] // 1つのメニューに複数の具材が紐付く
+  createdAt   DateTime     @default(now())
+}
+
+// 3. 具材（素材名とその量）を管理
+model Ingredient {
+  id        Int    @id @default(autoincrement())
+  name      String // 具材名（例: "トマト"）
+  amount    String // 量（例: "2個", "100g"）
+  // メニューとの紐付け
+  menuId    Int
+  menu      Menu   @relation(fields: [menuId], references: [id])
 }
