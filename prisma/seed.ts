@@ -1,50 +1,68 @@
-// prisma/seed.ts
 import { PrismaClient } from "@prisma/client";
+
 const prisma = new PrismaClient();
 
 async function main() {
-  // 依存関係の逆順で削除（具材 -> メニュー -> カテゴリ）
+  // 1. 既存データのクリア（順序に注意：子から先に消す）
   await prisma.ingredient.deleteMany();
   await prisma.menu.deleteMany();
   await prisma.category.deleteMany();
 
-  // 1. カテゴリの作成
-  const pasta = await prisma.category.create({ data: { name: "パスタ" } });
-  const salad = await prisma.category.create({ data: { name: "サラダ" } });
+  // 2. カテゴリの作成
+  const catCurry = await prisma.category.create({
+    data: { name: "カレー" },
+  });
+  const catStew = await prisma.category.create({
+    data: { name: "シチュー" },
+  });
 
-  // 2. メニューと具材を同時に作成
+  // 3. カレー（1人前）の作成
   await prisma.menu.create({
     data: {
-      name: "濃厚カルボナーラ",
-      description: "卵黄とパンチェッタの本格派",
-      categoryId: pasta.id, // パスタカテゴリに紐付け
+      name: "ポークカレー",
+      description: "1人前カレー",
+      categoryId: catCurry.id,
       ingredients: {
         create: [
-          { name: "スパゲッティ", amount: "100g" },
-          { name: "卵黄", amount: "2個" },
-          { name: "パンチェッタ", amount: "30g" },
+          { name: "豚こま切れ肉", amount: "80g" },
+          { name: "玉ねぎ", amount: "1/4個" },
+          { name: "じゃがいも", amount: "1/2個" },
+          { name: "にんじん", amount: "1/8本" },
+          { name: "カレールウ", amount: "1皿分" },
+          { name: "水", amount: "150ml" },
         ],
       },
     },
   });
 
+  // 4. シチュー（1人前）の作成
   await prisma.menu.create({
     data: {
-      name: "シーザーサラダ",
-      description: "自家製ドレッシングのサラダ",
-      categoryId: salad.id, // サラダカテゴリに紐付け
+      name: "クリームシチュー",
+      description: "1人前シチュー",
+      categoryId: catStew.id,
       ingredients: {
         create: [
-          { name: "ロメインレタス", amount: "1/4個" },
-          { name: "クルトン", amount: "適量" },
+          { name: "鶏もも肉", amount: "80g" },
+          { name: "玉ねぎ", amount: "1/4個" },
+          { name: "じゃがいも", amount: "1/2個" },
+          { name: "ブロッコリー", amount: "2房" },
+          { name: "シチュールウ", amount: "1皿分" },
+          { name: "水", amount: "100ml" },
+          { name: "牛乳", amount: "50ml" },
         ],
       },
     },
   });
 
-  console.log("リレーション付きシード完了！");
+  console.log("Seed data created successfully!");
 }
 
 main()
-  .catch((e) => { console.error(e); process.exit(1); })
-  .finally(async () => { await prisma.$disconnect(); });
+  .catch((e) => {
+    console.error(e);
+    process.exit(1);
+  })
+  .finally(async () => {
+    await prisma.$disconnect();
+  });

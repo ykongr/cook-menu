@@ -1,8 +1,7 @@
 import prisma from "@/lib/prisma";
-import { createMenu } from "../actions";
+import { createMenu } from "../../components/actions";
 
 export default async function NewMenuPage() {
-  // 選択肢として使うためにカテゴリ一覧を取得
   const categories = await prisma.category.findMany();
 
   return (
@@ -21,7 +20,6 @@ export default async function NewMenuPage() {
           />
         </div>
 
-        {/* カテゴリ選択 or 新規作成 */}
         <div className="bg-gray-50 p-4 rounded-lg border">
           <label className="block text-sm font-bold mb-3">カテゴリ設定</label>
           

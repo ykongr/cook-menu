@@ -23,20 +23,17 @@ model Menu {
   id          Int          @id @default(autoincrement())
   name        String       // 料理名
   description String?
-  // ジャンルとの紐付け
-  categoryId  Int
-  category    Category     @relation(fields: [categoryId], references: [id])
-  // 具材との紐付け
-  ingredients Ingredient[] // 1つのメニューに複数の具材が紐付く
+  categoryId  Int?
+  category    Category?     @relation(fields: [categoryId], references: [id])
+  ingredients Ingredient[] 
   createdAt   DateTime     @default(now())
 }
 
 // 3. 具材（素材名とその量）を管理
 model Ingredient {
   id        Int    @id @default(autoincrement())
-  name      String // 具材名（例: "トマト"）
-  amount    String // 量（例: "2個", "100g"）
-  // メニューとの紐付け
+  name      String 
+  amount    String 
   menuId    Int
   menu      Menu   @relation(fields: [menuId], references: [id])
 }
