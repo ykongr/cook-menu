@@ -2,7 +2,7 @@
 
 ## 公開URL
 
-- **本番環境**: [https://cook-menu-9m4e0l60z-ykongrs-projects.vercel.app/p](https://cook-menu-9m4e0l60z-ykongrs-projects.vercel.app/)
+- [https://cook-menu.vercel.app/](https://cook-menu.vercel.app/)
 
 ## 概要
 
@@ -12,7 +12,15 @@
 
 ## 開発の背景・経緯
 
-普段、料理のメニューを手書きのメモで管理している人物から、もっと手軽に内容を書き換えられるメモがあるといいという話を聞き開発。直感的な操作UIと、素早い反映を意識して開発した。
+普段、料理のメニューを手書きのメモで管理している人物から、もっと手軽に内容を書き換えられるメモがあるといいという話を聞き開発。直感的な操作UIと、素早い反映、スマートフォンでの使用を意識して開発した。
+
+## 実際の画面
+
+![レシピ一覧のスマホ画面](/picture/screen1.png)
+![ソート後のスマホ画面](/picture/screen2.png)
+![編集機能のスマホ画面](/picture/screen3.png)
+![新規登録のスマホ画面](/picture/screen4.png)
+![レシピ一覧のPC画面](/picture/screen5.png)
 
 ## 特徴と機能の説明
 

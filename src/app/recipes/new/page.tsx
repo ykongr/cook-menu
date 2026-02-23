@@ -9,7 +9,7 @@ export default async function NewMenuPage() {
     <main className="max-w-2xl mx-auto p-8">
       <div className="mb-6">
         <Link 
-          href="/recipes" 
+          href="/" 
           className="text-gray-500 hover:text-gray-700 hover:underline flex items-center gap-1 transition-colors"
         >
           ← 戻る
