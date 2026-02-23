@@ -10,26 +10,22 @@ export async function createMenu(formData: FormData) {
   const categoryIdRaw = formData.get("categoryId");
   const newCategoryName = formData.get("newCategoryName") as string;
 
-  let finalCategoryId: number | null = null; // 初期値を null に
+  let finalCategoryId: number | undefined = undefined;
 
-  // 1. 新しいカテゴリが入力された場合
   if (newCategoryName && newCategoryName.trim() !== "") {
     const newCategory = await prisma.category.create({
       data: { name: newCategoryName.trim() }
     });
     finalCategoryId = newCategory.id;
   } 
-  // 2. 既存のカテゴリが選ばれた場合
   else if (categoryIdRaw && String(categoryIdRaw).trim() !== "" && Number(categoryIdRaw) !== 0) {
     finalCategoryId = Number(categoryIdRaw);
   }
-
-  // 3. 保存（categoryId が null でも OK になる）
   await prisma.menu.create({
     data: {
       name,
       description,
-      categoryId: finalCategoryId, // ここが null ならカテゴリなしで保存される
+      categoryId: finalCategoryId,
     },
   });
 
@@ -62,13 +58,10 @@ export async function updateMenu(formData: FormData) {
     }))
     .filter((ing) => ing.name !== "");
 
-  // 4. 実行
   await prisma.$transaction([
-    // ① 具材削除
     prisma.ingredient.deleteMany({
       where: { menuId: id },
     }),
-    // ② 本体更新と具材作成
     prisma.menu.update({
       where: { id: id },
       data: {
@@ -89,12 +82,10 @@ export async function updateMenu(formData: FormData) {
 export async function deleteMenu(formData: FormData) {
   const id = Number(formData.get("id"));
 
-  // 1. 関連する具材を先に削除（PrismaのCASCADE設定がない場合）
   await prisma.ingredient.deleteMany({
     where: { menuId: id },
   });
 
-  // 2. メニュー本体を削除
   await prisma.menu.delete({
     where: { id: id },
   });
