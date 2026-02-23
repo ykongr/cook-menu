@@ -1,4 +1,5 @@
 import prisma from "@/lib/prisma";
+import Link from "next/link";
 import { createMenu } from "../../components/actions";
 
 export default async function NewMenuPage() {
@@ -6,6 +7,15 @@ export default async function NewMenuPage() {
 
   return (
     <main className="max-w-2xl mx-auto p-8">
+      <div className="mb-6">
+        <Link 
+          href="/recipes" 
+          className="text-gray-500 hover:text-gray-700 hover:underline flex items-center gap-1 transition-colors"
+        >
+          ← 戻る
+        </Link>
+      </div>
+
       <h1 className="text-2xl font-bold mb-6">新しいメニューを登録</h1>
 
       <form action={createMenu} className="flex flex-col gap-4">

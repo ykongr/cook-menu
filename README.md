@@ -1,36 +1,118 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🍳 Cook Menu - レシピ管理アプリ
 
-## Getting Started
+## 概要
 
-First, run the development server:
+**Cook Menu** は、毎日の料理をより簡単に、より楽しくするためのレシピ管理アプリです。
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+家庭でよく作る料理のレシピを一元管理し、カテゴリー別に整理・検索できます。具材の管理も含まれており、料理の計画や買い物リストの作成に役立ちます。家族で共有する料理本のようなアプリとして、日々の食卓を豊かにすることを目指しています。
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 開発の背景・経緯
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+このアプリは、「家庭の料理をもっと効率的に管理したい」というシンプルな課題から始まりました。
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+従来の料理は、リアルな料理本やレシピサイトで検索して作ることが多いですが、家族特有の割合調整や、繰り返し作る定番料理の管理は、紙のノートやメモアプリではかえって手間になることに気づきました。
 
-## Learn More
+そこで、以下のポイントを重視して開発しました：
 
-To learn more about Next.js, take a look at the following resources:
+1. **自分たちの料理を自分たちで管理** - 家庭のオリジナルレシピをシンプルに記録できるプラットフォーム
+2. **カテゴリー分類による直感的な検索** - パスタ、サラダ、主菜など、種類別に整理して目的の料理に素早くアクセス
+3. **具材管理の簡潔さ** - 何が必要かすぐに把握でき、買い物計画に活かせる
+4. **モダンな技術スタックの習得** - Next.js 15 と TypeScript を組み合わせた最新の Web 開発手法の実践
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+この開発を通じて、分析段階での課題設定から実装までの一連のプロセスを経験し、実務的な Web アプリケーション開発スキルを習得しました。
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 公開URL
 
-## Deploy on Vercel
+- **本番環境**: [https://cook-menu-9m4e0l60z-ykongrs-projects.vercel.app/p](https://cook-menu-9m4e0l60z-ykongrs-projects.vercel.app/)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 特徴と機能の説明
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### 📋 レシピ一覧表示
+
+コンシューマーフレンドリーなグリッドレイアウトで、全レシピを一目で確認できます。各レシピカードには料理名、カテゴリーラベル、説明が表示され、クリックで詳細ページへ移動します。
+
+### 🏷️ カテゴリー別フィルタリング
+
+「パスタ」「サラダ」「デザート」など、料理の種類でフィルタリングできます。ボタンを切り替えることで、見たいカテゴリーの料理だけを素早く抽出。日々の献立計画に最適です。
+
+### ✏️ レシピの作成・編集機能
+
+料理名、説明、カテゴリー、具材をまとめて管理できます。具材は複数登録でき、「小麦粉 200g」のように名前と量をセットで記録。新しい料理を思いついたときも、その場で即座に登録可能。
+
+### 🔍 詳細ページでの完全な情報表示
+
+各レシピの詳細ページでは、すべての具材が見やすく列挙されます。編集・削除ボタンも配置され、記録の管理が直感的に行えます。
+
+### 💾 永続化されたデータベース
+
+PostgreSQL を使用した堅牢なデータベース管理により、一度登録したレシピは安全に保存され、いつでもアクセス可能です。
+
+### ⚙️ レスポンシブデザイン
+
+スマートフォンからデスクトップまで、あらゆるデバイスで快適に使用できるデザインを実装。キッチンでスマートフォンを見ながらの料理も、仕事中にデスクトップから献立を確認することも可能です。
+
+## 使用技術 (技術スタック)
+
+### 言語・フレームワーク・ライブラリ
+
+- **TypeScript** - 型安全性を確保し、開発効率とコード品質を向上
+- **Next.js 15** - React フレームワーク、サーバーサイドレンダリングと静的生成に対応
+- **React 19** - UI構築の基盤
+- **Prisma 6** - ORM（オブジェクト関連マッピング）ツール、TypeScript との相性が優秀
+- **Tailwind CSS 4** - ユーティリティファーストの CSS フレームワーク、スタイリング効率化
+
+### 開発ツール・サービス
+
+- **PostgreSQL** - リレーショナルデータベース、本番環境での信頼性を確保
+- **Vercel** - Next.js のホスティングに最適なプラットフォーム _(デプロイ予定)_
+- **Visual Studio Code** - コード編集環境
+- **Git/GitHub** - バージョン管理
+
+## 開発期間・体制
+
+- **開発体制**: 個人開発
+- **開発期間**: 2026.02.01 ~ 2026.02.22(約30時間)
+
+## 工夫した点・苦労した点
+
+### 工夫した点
+
+1. **サーバーコンポーネントの活用** - Next.js 13+ の Server Components を採用し、クライアントサイドのバンドルサイズを削減。初期ロード時間の短縮を実現しました。
+
+2. **Prisma による型安全なデータベース操作** - Prisma の自動生成される型定義により、TypeScript の型チェックが効き、ランタイムエラーを事前に防止できます。
+
+3. **リレーション設計の最適化** - Category と Menu のOne-to-Many、Menu と Ingredient の One-to-Many という2段階のリレーションを実装することで、カテゴリー別フィルタリングと具材表示を効率的に行えるようにしました。
+
+4. **Tailwind CSS によるレスポンシブ設計** - `md:` ブレークポイントを活用し、スマートフォン（1列表示）とデスクトップ（2列表示）での異なるレイアウトを簡潔に実装。
+
+5. **開発体験の向上** - Turbopack を Next.js のビルドツールとして採用し、開発中のビルド時間を短縮化。開発の反復サイクルを高速化しました。
+
+### 苦労した点
+
+1. **データベーススキーマ設計** - 初期段階で Category を必須にしていた設計を、後に optional に変更する必要が生じ、マイグレーション管理の複雑さを学びました。（Prisma のマイグレーション機能により解決）
+
+2. **Server Components と Client Components の使い分け** - 一部のインタラクティブな機能（フォーム送信、クライアントサイドフィルタリング）を実装する際、どのコンポーネントをサーバー/クライアントに分けるかの判断に時間を要しました。
+
+3. **TypeScript の型推論** - Prisma から自動生成される複雑なリレーション型を正確に扱うために、ジェネリクスやユーティリティ型の理解を深める必要がありました。
+
+## 既知の課題と今後の展望
+
+### 既知の課題
+
+- 現在、単一ユーザーを想定した実装となっており、複数ユーザーでの共有機能が未実装
+- 画像のアップロード機能がなく、テキストベースのみでの記録となっている
+- 食材の数量単位の管理がシンプルすぎ（「200g」形式の文字列のみ）
+
+### 今後の展望・機能拡張ロードマップ
+
+1. **ユーザー認証機能** - Supabase または NextAuth.js を導入し、複数ユーザーでのログイン・アカウント管理に対応
+2. **レシピ画像のアップロード** - 各レシピにメイン画像を設定でき、ビジュアル的に更に分かりやすいリスト表示が可能に
+3. **買い物リスト機能** - 複数のレシピを選択すると、必要な食材を自動集計し買い物リストを生成
+4. **スター評価・お気に入り機能** - よく作る料理にマークをつけ、優先的に表示させるなど、パーソナライズを強化
+5. **食材在庫管理** - キッチンにある食材を記録し、それで作れるレシピを提案する機能
+6. **モバイルアプリ化** - React Native または Flutter でモバイルアプリ版の開発を検討
+7. **レシピシェアリング** - 質の高いレシピをコミュニティで共有し、他のユーザーがレシピを発見・利用できる仕組み
+
+---
+
+**最終更新**: 2026年2月23日
