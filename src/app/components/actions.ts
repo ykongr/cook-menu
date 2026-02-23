@@ -25,7 +25,7 @@ export async function createMenu(formData: FormData) {
     data: {
       name,
       description,
-      categoryId: finalCategoryId,
+      ...(finalCategoryId ? { categoryId: finalCategoryId } : {}),
     },
   });
 
