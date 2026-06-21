@@ -11,7 +11,7 @@ export default async function RecipeDetailPage({ params }: { params: Promise<{ i
     prisma.category.findMany(),
     prisma.menu.findUnique({
       where: { id: Number(id) },
-      include: { category: true, ingredients: true },
+      include: { category: true, ingredients: true, user: true },
     })
   ]);
 

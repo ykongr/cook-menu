@@ -1,6 +1,7 @@
 import prisma from "@/lib/prisma";
 import Link from "next/link";
 import CategorySort from "./components/CategorySort";
+import LogoutButton from "./components/LogoutButton";
 
 export default async function RecipeListPage({
   searchParams,
@@ -16,7 +17,7 @@ export default async function RecipeListPage({
       where: {
         categoryId: categoryId || undefined,
       },
-      include: { category: true },
+      include: { category: true, user: true },
       orderBy: { createdAt: "desc" },
     }),
   ]);
@@ -25,12 +26,15 @@ export default async function RecipeListPage({
     <main className="max-w-4xl mx-auto p-8">
       <div className="flex justify-between items-center mb-8">
         <h1 className="text-3xl font-bold">レシピ一覧</h1>
-        <Link 
-          href="/recipes/new" 
-          className="bg-blue-600 text-white px-4 py-2 rounded-lg font-bold hover:bg-blue-700"
-        >
-          ＋ 新規作成
-        </Link>
+        <div className="flex gap-4">
+          <Link 
+            href="/recipes/new" 
+            className="bg-blue-600 text-white px-4 py-2 rounded-lg font-bold hover:bg-blue-700"
+          >
+            ＋ 新規作成
+          </Link>
+          <LogoutButton />
+        </div>
       </div>
 
       <CategorySort categories={categories} activeCategoryId={categoryId} />
@@ -39,11 +43,18 @@ export default async function RecipeListPage({
         {menus.map((menu) => (
           <Link key={menu.id} href={`/recipes/${menu.id}`}>
             <div className="border rounded-xl p-6 hover:shadow-md transition bg-white group">
-              {menu.category && (
-                <span className="text-xs font-bold text-blue-500 bg-blue-50 px-2 py-1 rounded">
-                  {menu.category.name}
-                </span>
-              )}
+              <div className="flex items-center justify-between mb-2">
+                {menu.category && (
+                  <span className="text-xs font-bold text-blue-500 bg-blue-50 px-2 py-1 rounded">
+                    {menu.category.name}
+                  </span>
+                )}
+                {menu.user && (
+                  <span className="text-xs text-gray-500">
+                    by {menu.user.name}
+                  </span>
+                )}
+              </div>
               <h2 className="text-xl font-bold mt-2 group-hover:text-blue-600">
                 {menu.name}
               </h2>

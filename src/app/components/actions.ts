@@ -3,8 +3,23 @@
 import prisma from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import { cookies } from "next/headers";
+import { verifyToken } from "@/lib/auth";
 
 export async function createMenu(formData: FormData) {
+  const cookieStore = await cookies();
+  const token = cookieStore.get('token')?.value;
+  
+  if (!token) {
+    throw new Error("認証が必要です");
+  }
+
+  const tokenData = verifyToken(token);
+  if (!tokenData) {
+    throw new Error("無効なトークンです");
+  }
+
+  const userId = tokenData.userId;
   const name = formData.get("name") as string;
   const description = formData.get("description") as string;
   const categoryIdRaw = formData.get("categoryId");
@@ -25,6 +40,7 @@ export async function createMenu(formData: FormData) {
     data: {
       name,
       description,
+      userId,
       ...(finalCategoryId ? { categoryId: finalCategoryId } : {}),
     },
   });

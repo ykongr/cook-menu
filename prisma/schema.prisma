@@ -25,6 +25,8 @@ model Menu {
   description String?
   categoryId  Int?
   category    Category?     @relation(fields: [categoryId], references: [id])
+  userId      String?
+  user        User?         @relation(fields: [userId], references: [id])
   ingredients Ingredient[] 
   createdAt   DateTime     @default(now())
 }
@@ -36,4 +38,14 @@ model Ingredient {
   amount    String 
   menuId    Int
   menu      Menu   @relation(fields: [menuId], references: [id])
+}
+
+model User {
+  id        String     @id @default(cuid())
+  email     String     @unique
+  password  String
+  name      String?
+  menus     Menu[]
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
 }

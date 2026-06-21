@@ -16,6 +16,10 @@ type MenuWithIngredients = {
   description: string | null;
   categoryId: number | null;
   ingredients: Ingredient[];
+  user?: {
+    id: string;
+    name: string | null;
+  } | null;
 };
 
 type Category = {
@@ -70,18 +74,26 @@ export default function RecipeDetailClient({ menu, categories }: { menu: MenuWit
       <input type="hidden" name="id" value={menu.id} />
       
       <div className="space-y-6">
-        <div>
-          <label className="text-xs font-bold text-gray-400 uppercase">ジャンル</label>
-          <select 
-            name="categoryId" 
-            defaultValue={optimisticMenu.categoryId || ""}
-            className="block w-full mt-1 border-gray-200 rounded-md text-blue-600 font-bold"
-          >
-            <option value="">選択なし</option>
-            {categories.map(cat => (
-              <option key={cat.id} value={cat.id}>{cat.name}</option>
-            ))}
-          </select>
+        <div className="flex items-center justify-between">
+          <div>
+            <label className="text-xs font-bold text-gray-400 uppercase">ジャンル</label>
+            <select 
+              name="categoryId" 
+              defaultValue={optimisticMenu.categoryId || ""}
+              className="block w-full mt-1 border-gray-200 rounded-md text-blue-600 font-bold"
+            >
+              <option value="">選択なし</option>
+              {categories.map(cat => (
+                <option key={cat.id} value={cat.id}>{cat.name}</option>
+              ))}
+            </select>
+          </div>
+          {optimisticMenu.user && (
+            <div className="text-right">
+              <label className="text-xs font-bold text-gray-400 uppercase">作成者</label>
+              <p className="text-sm text-gray-600 mt-1">{optimisticMenu.user.name}</p>
+            </div>
+          )}
         </div>
 
         <div>
