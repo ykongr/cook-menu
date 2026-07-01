@@ -1,7 +1,6 @@
 import prisma from "@/lib/prisma";
 import Link from "next/link";
 import CategorySort from "./components/CategorySort";
-import LogoutButton from "./components/LogoutButton";
 
 export default async function RecipeListPage({
   searchParams,
@@ -33,7 +32,12 @@ export default async function RecipeListPage({
           >
             ＋ 新規作成
           </Link>
-          <LogoutButton />
+          <Link 
+            href="/settings" 
+            className="bg-gray-600 text-white px-4 py-2 rounded-lg font-bold hover:bg-gray-700"
+          >
+            設定
+          </Link>
         </div>
       </div>
 
