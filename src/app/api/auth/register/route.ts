@@ -7,7 +7,6 @@ export async function POST(request: NextRequest) {
   try {
     const { email, password, name } = await request.json();
 
-    // パスワード検証
     const validation = validatePassword(password);
     if (!validation.valid) {
       return NextResponse.json(
